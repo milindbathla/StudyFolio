@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "learner-memory-calendar"
+version = "1.0.0"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+ "fastapi>=0.121,<1", "uvicorn>=0.30,<1", "SQLAlchemy>=2.0,<2.1",
+ "alembic>=1.13,<2", "pydantic>=2.9,<3", "python-dotenv>=1,<2",
+ "tzdata>=2024.1", "python-dateutil>=2.9,<3", "icalendar>=6,<8",
+ "pymupdf>=1.24,<2","neo4j>=5,<7","python-multipart>=0.0.20,<1",
+]
+
+[project.optional-dependencies]
+ai = ["litellm>=1.60,<2"]
+vectors = ["chromadb>=1,<2", "sentence-transformers>=4,<7"]
+dev = ["pytest>=8.4,<10", "pytest-asyncio>=0.24,<2", "httpx>=0.27,<1", "ruff>=0.9,<1"]
+
+[tool.setuptools]
+packages = ["app", "app.memory", "app.calendar"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 105
+[tool.ruff.lint]
+select = ["E4","E7","E9","F","I","B"]
+ignore = ["B008"]
